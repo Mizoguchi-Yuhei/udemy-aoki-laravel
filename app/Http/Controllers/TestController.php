@@ -9,7 +9,6 @@ use App\Models\Test;
 
 // DBファサードをインポート
 use Illuminate\Support\Facades\DB;
-
 class TestController extends Controller
 {
     //

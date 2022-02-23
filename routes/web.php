@@ -16,6 +16,16 @@ Route::get('/', function () {
 });
 
 Route::get('tests/test', 'TestController@index');
+
+// Route::get('contact/index', 'ContactFormController@index');
+
+Route::group(['prefix' => 'contact', 'middleware' => 'auth'], function(){
+    Route::get('index', 'ContactFormController@index')->name('contact.index');
+});
+
+// REST
+// Route::resource('contacts', 'ContactFormController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
