@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\ContactForm;  // コンタクトフォームのデータを入力するため
+use Illuminate\Support\Facades\DB;  // DBのファサード クエリビルダーの使用のため
+
 class ContactFormController extends Controller
 {
     /**
@@ -13,7 +16,20 @@ class ContactFormController extends Controller
      */
     public function index()
     {
-        return view('contact.index');
+        // データを全て持ってくる
+        // Eloquent ORマッパー
+        // $contacts = ContactForm::all();
+        // dd($contacts);
+
+        // クエリビルダー
+        $contacts = DB::table('contact_forms')
+            ->select('id', 'your_name', 'title', 'created_at')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // dd('$contacts');
+
+        return view('contact.index', compact('contacts'));
     }
 
     /**
@@ -34,7 +50,23 @@ class ContactFormController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contact = new ContactForm;
+
+        // $input = $request->all();  // 全てのデータを持ってくる
+        $contact->your_name = $request->input('your_name');
+        $contact->title = $request->input('title');
+        $contact->email = $request->input('email');
+        $contact->url = $request->input('url');
+        $contact->gender = $request->input('gender');
+        $contact->age = $request->input('age');
+        $contact->contact = $request->input('contact');
+
+        $contact->save();
+
+        return redirect('contact\index');
+
+        // dd($your_name, $title);
+        // dd($contact->your_name, $contact->title);
     }
 
     /**
