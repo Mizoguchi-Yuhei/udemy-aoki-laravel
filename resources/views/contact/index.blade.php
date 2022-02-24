@@ -13,7 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    {{-- <form action="{{ route('contact.create') }}" method="GET">
+                        <button type="submit" class="btn btn-primary">新規登録</button>
+                    </form> --}}
+                    <a href="{{ route('contact.create') }}" class="btn btn-secondary" tabindex="1" role="button" aria-disabled="true">新規登録</a>
+                    {{-- <a href="{{ route('contact.create') }}">新規登録</a> --}}
                     indexです
                 </div>
             </div>
