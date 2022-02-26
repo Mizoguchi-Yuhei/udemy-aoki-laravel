@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\ContactForm;  // コンタクトフォームのデータを入力するため
 use Illuminate\Support\Facades\DB;  // DBのファサード クエリビルダーの使用のため
-
+use App\Services\CheckFormData;
 class ContactFormController extends Controller
 {
     /**
@@ -51,7 +51,6 @@ class ContactFormController extends Controller
     public function store(Request $request)
     {
         $contact = new ContactForm;
-
         // $input = $request->all();  // 全てのデータを持ってくる
         $contact->your_name = $request->input('your_name');
         $contact->title = $request->input('title');
@@ -74,10 +73,21 @@ class ContactFormController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * ユーザー詳細表示
      */
     public function show($id)
     {
         //
+        $contact = ContactForm::find($id);
+
+        // 性別
+        $gender = CheckFormData::checkGender($contact);
+        //年代
+        $age = CheckFormData::checkAge()($contact);
+
+        // dd($contact);
+        return view('contact.show',
+        compact('contact', 'gender', 'age'));
     }
 
     /**
@@ -85,10 +95,13 @@ class ContactFormController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 編集画面
      */
     public function edit($id)
     {
-        //
+        $contact = ContactForm::find($id);
+
+        return view('contact.edit', compact('contact'));
     }
 
     /**
@@ -97,10 +110,23 @@ class ContactFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 更新
      */
     public function update(Request $request, $id)
     {
-        //
+        $contact = ContactForm::find($id);
+        // $input = $request->all();  // 全てのデータを持ってくる
+        $contact->your_name = $request->input('your_name');
+        $contact->title = $request->input('title');
+        $contact->email = $request->input('email');
+        $contact->url = $request->input('url');
+        $contact->gender = $request->input('gender');
+        $contact->age = $request->input('age');
+        $contact->contact = $request->input('contact');
+
+        $contact->save();
+
+        return redirect('contact\index');
     }
 
     /**
@@ -108,9 +134,13 @@ class ContactFormController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * データの削除
      */
     public function destroy($id)
     {
-        //
+        $contact = ContactForm::find($id);
+        $contact->delete();
+
+        return redirect('contact/index');
     }
 }
