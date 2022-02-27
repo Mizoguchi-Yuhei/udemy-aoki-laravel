@@ -17,7 +17,7 @@ class CheckFormData
         return $gender;
     }
 
-    public static function checkAge(){
+    public static function checkAge($data){
         // 年代表示
         if($data->age === 1) {
             $age = '〜19歳';

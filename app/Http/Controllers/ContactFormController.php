@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ContactForm;  // コンタクトフォームのデータを入力するため
 use Illuminate\Support\Facades\DB;  // DBのファサード クエリビルダーの使用のため
 use App\Services\CheckFormData;
+use App\Http\Requests\StoreContactForm;  // バリデーションの呼び出し
 class ContactFormController extends Controller
 {
     /**
@@ -48,7 +49,7 @@ class ContactFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreContactForm $request)
     {
         $contact = new ContactForm;
         // $input = $request->all();  // 全てのデータを持ってくる
@@ -83,7 +84,7 @@ class ContactFormController extends Controller
         // 性別
         $gender = CheckFormData::checkGender($contact);
         //年代
-        $age = CheckFormData::checkAge()($contact);
+        $age = CheckFormData::checkAge($contact);
 
         // dd($contact);
         return view('contact.show',
