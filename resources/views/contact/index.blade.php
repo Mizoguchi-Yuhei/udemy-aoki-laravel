@@ -21,6 +21,13 @@
                         </a>
                         <br>
                         {{-- <a href="{{ route('contact.create') }}">新規登録</a> --}}
+
+                        {{-- 検索フォーム --}}
+                        <form action="{{route('contact.index')}}" method="GET" class="form-inline my-2 my-lg-0">
+                            <input type="search" name="search" class="form-control mr-sm-2" placeholder="検索" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
+                        </form>
+
                         <table class="table">
                             <thead>
                                 <tr>
@@ -57,6 +64,9 @@
                                     @endforeach
                             </tbody>
                         </table>
+
+                        {{-- ページネーション --}}
+                        {{$contacts->links()}}
                     </div>
                 </div>
             </div>
