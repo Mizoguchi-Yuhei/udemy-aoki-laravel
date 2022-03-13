@@ -95,7 +95,7 @@ return [
     'numeric'              => ':attributeには、数字を指定してください。',
     'present'              => ':attributeが存在していません。',
     'regex'                => ':attributeに正しい形式を指定してください。',
-    'required'             => ':attributeは必ず指定してください。',
+    'required'             => ':attributeは必ず入力してください。',
     'required_if'          => ':otherが:valueの場合、:attributeも指定してください。',
     'required_unless'      => ':otherが:valuesでない場合、:attributeを指定してください。',
     'required_with'        => ':valuesを指定する場合は、:attributeも指定してください。',
@@ -146,8 +146,14 @@ return [
     */
 
     'attributes' => [
+        'your_name' => '氏名', // 追記
         "email" => "メールアドレス",  // 追記
         'password' => 'パスワード',  // 追記
+        'title' => 'タイトル', // 追記
+        'gender' => '性別', // 追記
+        'age' => '年齢', // 追記
+        'contact' => 'お問い合わせ内容', // 追記
+        'caution' => '注意事項', // 追記
     ],
 
 ];
